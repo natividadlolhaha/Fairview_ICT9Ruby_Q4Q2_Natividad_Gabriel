@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grades Analyzer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Cal Sans", sans-serif;
+      background-color: #4e69ed;
+      padding: 20px;
+    }
+
+    .main-container {
+      background-color: white;
+      padding: 40px;
+      max-width: 1300px;
+      margin: 60px auto;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #000;
+      margin-bottom: 30px;
+    }
+
+    .rowsubject {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .boxsubject {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .imageofsubject {
+      width: 400px;
+      height: 180px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    .btn-primary {
+      background-color: #28a745;
+      border: none;
+      margin-top: 20px;
+    }
+
+    .btn-primary:hover {
+      background-color: #218838;
+    }
+
+    #averagegrade {
+      background-color: #f8f9fa;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+
+    .grading-chart {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .grading-chart h2 {
+      margin-bottom: 20px;
+    }
+
+    .grading-chart ul {
+      display: inline-block;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+<div class="main-container">
+  <h1>Grade Analyzer</h1>
+<details ontoggle="console.log('Instructions toggled')">
+<summary><strong>Click here for Instructions</strong></summary>
+	<p>Enter your grades for the following subjects to calculate for your average.</p>
+</details>
+  <form onsubmit="return calculateAverage()">
+    <div class="rowsubject">
+      <div class="boxsubject">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEina1RfUMJdWrzSZ8hs1QbTJvsZmc8wQgsKKqTDNNcMEwcXqGhwHNJ3Q1Aan5z7GfuzoXTsLol3OZyCRDbPvYhpsySzFJA90SaL_PXFVJn0Yhg8wDKOBLpGrZfC-am3vrpOuigpHKHxBuo/s1600/IMG_20180612_235000.jpg" class="imageofsubject" alt="Filipino">
+        <label for="subject1">Filipino</label>
+        <input type="text" class="form-control" id="subject1">
+      </div>
+      <div class="boxsubject">
+        <img src="https://marvel-b1-cdn.bc0a.com/f00000000100045/www.elmhurst.edu/wp-content/uploads/2022/04/math-education-illustration.jpg" class="imageofsubject" alt="Math">
+        <label for="subject2">Math</label>
+        <input type="text" class="form-control" id="subject2">
+      </div>
+      <div class="boxsubject">
+        <img src="https://cbx-prod.b-cdn.net/COLOURBOX36133513.jpg?width=800&height=800&quality=70" class="imageofsubject" alt="English">
+        <label for="subject3">English</label>
+        <input type="text" class="form-control" id="subject3">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Calculate Average</button>
+  </form>
+
+  <div id="averagegrade"></div>
+
+  <div class="grading-chart">
+    <h2>Grading Chart</h2>
+    <ul class="list-group">
+      <li class="list-group-item">94 to 100 - Excellent</li>
+      <li class="list-group-item">87 to 93.99 - Above Satisfactory</li>
+      <li class="list-group-item">80 to 86.99 - Satisfactory</li>
+      <li class="list-group-item">75 to 79.99 - Needs Improvement</li>
+      <li class="list-group-item">Below 75 - Poor</li>
+    </ul>
+<p>OBMC Online grades: <a href="https://obmfairviewsis.orangeapps.ph/ob/elearning/grades" target="_blank">here</a></p>
+  </div>
+</div>
+
+<script>
+  function calculateAverage() {
+    var grade1 = document.getElementById('subject1').value;
+    var grade2 = document.getElementById('subject2').value;
+    var grade3 = document.getElementById('subject3').value;
+
+    if (grade1 < 0 || grade1 > 100 || grade2 < 0 || grade2 > 100 || grade3 < 0 || grade3 > 100) {
+      alert("Grades must be between 0 and 100.");
+      return false;
+    }
+
+    var average = (+grade1 + +grade2 + +grade3) / 3;
+    var grading = '';
+
+    switch (true) {
+      case (average >= 94):
+        grading = "Excellent";
+        break;
+      case (average >= 87):
+        grading = "Above Satisfactory";
+        break;
+      case (average >= 80):
+        grading = "Satisfactory";
+        break;
+      case (average >= 75):
+        grading = "Needs Improvement";
+        break;
+      default:
+        grading = "u bad asf go study";
+        break;
+    }
+
+    document.getElementById('averagegrade').innerHTML =
+      `Average Grade: ${average.toFixed(2)}<br>Rating: ${grading}`;
+
+    return false;
+  }
+</script>
+
+</body>
+</html>
